@@ -2,7 +2,7 @@ import "./MoviesCard.css";
 import { React, useState } from "react";
 
 export default function MoviesCard (props) {
-    const {card} = props;
+    const {card, savedMovies} = props;
 
     const [isFilmAdded, setIsFilmAdded] = useState(false);
 
@@ -25,10 +25,13 @@ export default function MoviesCard (props) {
 
     return (
         <article className="card">
-            <button className={`card__add-button ${isFilmAdded ? "card__add-button_added" : ""}`} 
-            onClick={hanldeButtonClick}>
-                {isFilmAdded ? '' : 'Сохранить'}
-            </button>
+            {savedMovies ? 
+                <button className="card__button card__button_type_delete" onClick={hanldeButtonClick}></button> :
+                <button className={`card__button ${isFilmAdded ? "card__button_type_added" : "card__button_type_save"}`} 
+                onClick={hanldeButtonClick}>
+                    {isFilmAdded ? '' : 'Сохранить'}
+                </button>
+            }
             <img className="card__image" src={card.image} alt={card.nameRU} />
             <div className="card__container">
                 <p className="card__name">{card.nameRU}</p>

@@ -13,7 +13,7 @@ export default function SavedMovies (props) {
             <Header handleNavigatorClick={onNavigatorClick}/>
             <main className="saved-movies__main">
                 <SearchForm />
-                <MoviesCardList />
+                <MoviesCardList savedMovies={true}/>
                 <div className="saved-movies__block"></div>
             </main>
             <Footer />

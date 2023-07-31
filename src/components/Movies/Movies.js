@@ -14,7 +14,7 @@ export default function Movies (props) {
             <Header handleNavigatorClick={onNavigatorClick}/>
             <main className="movies__main">
                 <SearchForm />
-                <MoviesCardList />
+                <MoviesCardList savedMovies={false}/>
                 <MoreFilmButton />
             </main>
             <Footer />

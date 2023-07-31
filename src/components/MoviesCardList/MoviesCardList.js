@@ -66,11 +66,12 @@ const cards = [
 ]
 
 export default function MoviesCardList (props) {
+    const {savedMovies} = props;
     return (
         <section className="cards">
             {cards.map((card) => (
                 <div key={card.duration}>
-                    <MoviesCard card={card} />
+                    <MoviesCard card={card} savedMovies={savedMovies}/>
                 </div>
             ))}
         </section>
