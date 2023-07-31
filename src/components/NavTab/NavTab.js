@@ -1,7 +1,7 @@
 import "./NavTab.css";
 import React from 'react';
 import {NavLink} from 'react-router-dom';
-import NavTabAccaunt from "./NavTabAccaunt";
+import NavTabAccaunt from "./NavTabAccaunt/NavTabAccaunt";
 
 export default function NavTab (props) {
     const {onClick} = props;

@@ -10,14 +10,14 @@ export default function Movies (props) {
     const {onNavigatorClick} = props;
     
     return (
-        <main>
+        <div className="movies">
             <Header handleNavigatorClick={onNavigatorClick}/>
-            <div className="movies">
+            <main className="movies__main">
                 <SearchForm />
                 <MoviesCardList />
                 <MoreFilmButton />
-            </div>
+            </main>
             <Footer />
-        </main>
+        </div>
     )
 }

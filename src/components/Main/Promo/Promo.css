@@ -67,7 +67,7 @@
 
     position: relative;
 
-    transition: all 1s linear 0s;
+    transition: opacity 1s ease-in-out;
 }
 .promo__button::before {
     content:"";
@@ -85,8 +85,7 @@
 }
 .promo__button:hover {
     cursor: pointer;
-    background-color: black;
-    color: white;
+    opacity: 0.8;
 }
 
 .promo__image {

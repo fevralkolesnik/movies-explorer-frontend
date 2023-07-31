@@ -1,8 +1,12 @@
 .saved-movies {
+    margin: 0 auto;
+    width: 100%;
+}
+
+.saved-movies__main {
     background-color: #FFF;
     padding: 0 70px;
     box-sizing: border-box;
-    margin: 0 auto;
     width: 100%;
 }
 
@@ -13,7 +17,7 @@
 }
 
 @media screen and (max-width: 800px) {
-    .saved-movies {
+    .saved-movies__main {
         padding: 0 30px;
     }
 
@@ -23,7 +27,7 @@
 }
 
 @media screen and (max-width: 500px) {
-    .saved-movies {
+    .saved-movies__main {
         padding: 0 14px;
     }
 

@@ -10,13 +10,15 @@ import Footer from '../Footer/Footer';
 export default function Main(props) {
   const {isAuth, onNavigatorClick} = props;
     return (
-        <main className="main">
+        <div className="main">
           <Header main={true} isAuth={isAuth} handleNavigatorClick={onNavigatorClick}/>
-          <Promo />
-          <AboutProject />
-          <Techs />
-          <AboutMe />
+          <main>
+            <Promo />
+            <AboutProject />
+            <Techs />
+            <AboutMe />
+          </main>
           <Footer />
-        </main>
+        </div>
       );
 }

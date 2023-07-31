@@ -1,7 +1,7 @@
 import "./Navigation.css";
 import React from "react";
 import {NavLink} from 'react-router-dom';
-import NavTabAccaunt from "../NavTab/NavTabAccaunt";
+import NavTabAccaunt from "../NavTab/NavTabAccaunt/NavTabAccaunt";
 
 export default function Navigation (props) {
     const {isOpen, onClose} = props;

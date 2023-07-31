@@ -13,7 +13,7 @@
     transition: opacity 1s ease-in-out;
 }
 .navtab__mobile:hover {
-    opacity: 0.6;
+    opacity: 0.8;
     cursor: pointer;
 }
 
@@ -45,35 +45,12 @@
 
     transition: opacity 1s ease-in-out;
 }
-.navtab__link_type_profile {
-    font-size: 14px;
-    font-weight: 500;
-    line-height: 16px;
-}
 .navtab__link_active {
     font-weight: 500;
 }
 .navtab__link:hover {
-    opacity: 0.6;
+    opacity: 0.7;
     cursor: pointer;
-}
-
-.navtab__icon-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    height: 30px;
-    width: 26px;
-
-    border-radius: 4px;
-    background-color: #F9F9F9;
-}
-
-.navtab__icon {
-    width: 11.5px;
-    height: 14px;   
-    object-fit: contain;
 }
 
 @media screen and (max-width: 900px) {

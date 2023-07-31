@@ -9,8 +9,8 @@ export default function Form (props) {
 
     return (
         <section className="form"> 
-            <Link to='/'>
-                <img src={logo} alt='Логотип' className='form__logo' />
+            <Link to='/'  className='form__logo'>
+                <img src={logo} alt='Логотип' />
             </Link>
             <h1 className="form__title">{title}</h1>
             <form className="form__form " name={name}>

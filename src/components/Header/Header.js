@@ -2,7 +2,7 @@ import './Header.css';
 import React from 'react';
 import {Link} from 'react-router-dom';
 import NavTab from '../NavTab/NavTab';
-import NavTabAuth from '../NavTab/NavTabAuth';
+import NavTabAuth from '../NavTab/NavTabAuth/NavTabAuth';
 import logo from '../../images/logo.svg';
 
 export default function Header(props) {

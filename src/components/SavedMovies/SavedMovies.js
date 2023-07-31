@@ -9,14 +9,14 @@ export default function SavedMovies (props) {
     const {onNavigatorClick} = props;
 
     return (
-        <main>
+        <div className="saved-movies">
             <Header handleNavigatorClick={onNavigatorClick}/>
-            <div className="saved-movies">
+            <main className="saved-movies__main">
                 <SearchForm />
                 <MoviesCardList />
                 <div className="saved-movies__block"></div>
-            </div>
+            </main>
             <Footer />
-        </main>
+        </div>
     )
 }

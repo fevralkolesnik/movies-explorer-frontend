@@ -7,9 +7,9 @@ export default function Profile (props) {
     const {onNavigatorClick} = props;
 
     return (
-        <main>
+        <div className="profile">
             <Header handleNavigatorClick={onNavigatorClick}/>
-            <div className="profile">
+            <main className="profile__main">
                 <div className="profile__container">
                     <h1 className='profile__title'>Привет, Виталий!</h1>
                     <form className='profile__form'>
@@ -25,8 +25,7 @@ export default function Profile (props) {
                         </Link>
                     </form>
                 </div>
-            </div>
-            
-        </main>
+            </main>
+        </div>
     )
 }
