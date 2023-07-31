@@ -33,6 +33,7 @@
 
 .search-form__input:focus {
     outline: none;
+    box-shadow: 5px 5px 5px #e1dfdf;
 }
 
 .search-form__submit-button {

@@ -13,7 +13,7 @@
 .saved-movies__block {
     width: 100%;
     height: 140px;
-    margin-top: 95px;
+    margin-top: 102px;
 }
 
 @media screen and (max-width: 800px) {
@@ -22,7 +22,7 @@
     }
 
     .saved-movies__block {
-        margin-top: 40px;
+        margin-top: 55px;
     }
 }
 
@@ -32,6 +32,6 @@
     }
 
     .saved-movies__block {
-        margin-top: 0;
+        margin-top: 15px;
     }
 }

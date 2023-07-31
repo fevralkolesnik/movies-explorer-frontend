@@ -3,7 +3,7 @@
     display: flex;
     justify-content: center;
 
-    margin: 65px 0 80px; 
+    margin: 80px 0; 
 }
 
 .more-film__button {
@@ -28,12 +28,12 @@
 
 @media screen and (max-width: 800px) {
     .more-film {
-        margin: 50px 0 95px; 
+        margin: 60px 0 95px; 
     }
 }
 
 @media screen and (max-width: 500px) {
     .more-film {
-        margin: 45px 0 75px; 
+        margin: 63px 0 75px; 
     }
 }

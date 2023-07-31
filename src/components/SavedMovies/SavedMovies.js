@@ -1,22 +1,22 @@
 import "./SavedMovies.css";
-import React from 'react';
-import Header from '../Header/Header';
+import React from "react";
+import Header from "../Header/Header";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
 
-export default function SavedMovies (props) {
-    const {onNavigatorClick} = props;
+export default function SavedMovies(props) {
+  const { onNavigatorClick } = props;
 
-    return (
-        <div className="saved-movies">
-            <Header handleNavigatorClick={onNavigatorClick}/>
-            <main className="saved-movies__main">
-                <SearchForm />
-                <MoviesCardList savedMovies={true}/>
-                <div className="saved-movies__block"></div>
-            </main>
-            <Footer />
-        </div>
-    )
+  return (
+    <div className="saved-movies">
+      <Header handleNavigatorClick={onNavigatorClick} />
+      <main className="saved-movies__main">
+        <SearchForm />
+        <MoviesCardList savedMovies={true} />
+        <div className="saved-movies__block"></div>
+      </main>
+      <Footer />
+    </div>
+  );
 }
