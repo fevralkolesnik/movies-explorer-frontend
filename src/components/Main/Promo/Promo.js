@@ -1,5 +1,5 @@
 import './Promo.css';
-import promoImage from "../../images/promo-image.svg";
+import promoImage from "../../../images/promo-image.svg";
 
 export default function PromiseConstructor(props) {
     return (

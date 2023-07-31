@@ -1,0 +1,117 @@
+.search-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    border-bottom: 1px solid #E8E8E8;
+}
+
+.search-form__form {
+    margin-top: 60px;
+    width: 100%;
+
+    position: relative;
+}
+
+.search-form__input {
+    width: 100%;
+    min-height: 48px;
+
+    padding: 0 22px;
+    box-sizing: border-box;
+
+    border: 1px solid #F9F9F9;
+    border-radius: 40px;
+    background-color: #F9F9F9;
+
+    color: #A0A0A0;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 17px; /* 130.769% */
+}
+
+.search-form__input:focus {
+    outline: none;
+}
+
+.search-form__submit-button {
+    background-image: url(../../images/find.svg);
+    background-color: #F9F9F9;
+    
+    width: 80px;
+    height: 34px;
+
+    border: none;
+    border-radius: 40px;
+
+    position: absolute;
+    top: 6px;
+    right: 6px;
+
+    transition: opacity 1s ease-in-out;
+}
+
+.search-form__submit-button:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.search-form__form-field {
+    display: flex;
+    align-items: center;
+    
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+
+    margin: 40px 0 65px;
+
+    position: relative;
+}
+
+.search-form__checkbox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px; 
+    height: 1px;
+    overflow: hidden; 
+    clip: rect(0 0 0 0);
+}
+
+.search-form__visible-checkbox {
+    display: inline-block;
+    width: 36px;
+    height: 20px;
+    background-image: url(../../images/disabled.svg);
+    border-radius: 40px;
+
+    margin-right: 12px;
+}
+
+.search-form__checkbox:checked + .search-form__visible-checkbox {
+    background-image: url(../../images/checked.svg);
+}
+.search-form__checkbox:focus + .search-form__visible-checkbox {
+    box-shadow: 0 0 5px #fff6c5;
+}
+
+@media screen and (max-width: 800px) {
+    .search-form__form {
+        margin-top: 80px;
+    }
+    .search-form__form-field {
+        margin-bottom: 50px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .search-form__input {
+        font-size: 11px;
+    }
+
+    .search-form__form-field {
+        font-size: 11px;
+    }
+}

@@ -1,0 +1,109 @@
+.card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    position: relative;
+}
+.card:hover{
+    cursor: pointer;
+}
+
+.card__add-button {
+    opacity: 0;
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 72px;
+    height: 21px;
+
+    border-radius: 30px;
+    border: none;
+    background: #F9F9F9;
+
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 9px;
+}
+.card:hover .card__add-button {
+    opacity: 1;
+    cursor: pointer;
+}
+.card__add-button_added {
+    opacity: 1;
+    width: 21px;
+    height: 21px;
+    background-image: url("../../../images/saved.svg");
+}
+
+.card__image {
+    width: 100%;
+    height: 201px;
+    border-radius: 5px;
+
+    object-fit: cover;
+}
+
+.card__container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    margin-top: 14px;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+.card__name {
+    margin: 0;
+    padding: 0;
+
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.card__time {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 18px;
+    border-radius: 3px;
+    background: #F9F9F9;    
+    
+    margin: 0;
+    padding: 0;
+
+    color: #A0A0A0;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 10px;
+}
+
+@media screen and (max-width: 800px) {
+    .card__image {
+        height: 190px;
+    }
+
+    .card__container {
+        margin-top: 25px;
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .card__image {
+        height: 168px;
+    }
+
+    .card__name {
+        font-size: 12px;
+    }
+
+    .card__container {
+        margin-top: 16px;
+    }
+}
