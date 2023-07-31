@@ -9,11 +9,16 @@
 .saved-movies__block {
     width: 100%;
     height: 140px;
+    margin-top: 95px;
 }
 
 @media screen and (max-width: 800px) {
     .saved-movies {
         padding: 0 30px;
+    }
+
+    .saved-movies__block {
+        margin-top: 40px;
     }
 }
 
@@ -23,6 +28,6 @@
     }
 
     .saved-movies__block {
-        height: 152px;
+        margin-top: 0;
     }
 }

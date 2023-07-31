@@ -3,8 +3,6 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 export default function Footer (props) {
-    const {type} = props;
-
     return (
         <footer className='footer'>
             <p className="footer__description">Учебный проект Яндекс.Практикум х BeatFilm.</p>

@@ -1,3 +1,6 @@
+# [Ссылка на макет](https://drive.google.com/drive/folders/12jxhq8uIoQBijZ_G95jhoMjEppndlZJq?usp=sharing)
+.fig загружает исходный у меня, поэтому добавила pdf
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

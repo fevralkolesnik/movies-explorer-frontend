@@ -8,10 +8,16 @@
     margin-top: 80px;
 }
 
+@media screen and (max-width: 800px) {
+    .cards {
+        row-gap: 30px;
+    }
+}
+
 @media screen and (max-width: 500px) {
     .cards {
         margin-top: 50px;
 
-        row-gap: 35px;
+        row-gap: 22px;
     }
 }
