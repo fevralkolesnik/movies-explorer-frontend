@@ -1,0 +1,125 @@
+.about-project {
+    width: 100%;
+}
+
+.about-project__info {
+    margin: 70px 0 110px;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.about-project__container {
+    max-width: 550px;
+}
+.about-project__container:first-of-type {
+    margin: 0 40px 0 0;
+}
+
+.about-project__title {
+    margin: 0 0 26px;
+    padding: 0;
+
+    font-size: 20px;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: -0.88px;
+}
+
+.about-project__description {
+    margin: 0;
+    padding: 0;
+
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.about-project__progress {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 20% 80%;
+    grid-template-rows: repeat(2, 36px);
+    grid-row-gap: 5px;
+}
+
+.about-project__segment {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-project__segment_type_one-week {
+    background-color: #000;
+}
+
+.about-project__segment_type_four-weeks {
+    background-color: #F2F2F2;
+}
+
+.about-project__text {
+    margin: 0;
+    padding: 0;
+
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    color: #A0A0A0;
+}
+
+.about-project__text_type_one-week {
+    color: #FFF;
+}
+
+.about-project__text_type_four-weeks {
+    color: #000;
+}
+
+@media screen and (max-width: 800px) {
+    .about-project__description {
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    .about-project__info {
+        margin-bottom: 90px;
+    }
+}
+
+@media screen and (max-width: 530px) {
+    .about-project__info {
+        margin: 60px 0;
+    
+        flex-direction: column;
+    }
+
+    .about-project__container:first-of-type {
+        margin: 0 0 56px;
+    }
+
+    .about-project__title {
+        margin-bottom: 16px;
+    
+        font-size: 18px;
+        letter-spacing: -0.72px;
+    }
+
+    .about-project__description {
+        font-size: 11px;
+        line-height: 16px;
+    }
+
+    .about-project__progress {
+        grid-template-columns: 100px 1fr;
+        grid-template-rows: repeat(2, 35px);
+        grid-row-gap: 0px;
+    }
+
+    .about-project__text {
+        margin: 0;
+        padding: 0;
+    
+        font-size: 11px;
+        line-height: normal;
+    }
+}

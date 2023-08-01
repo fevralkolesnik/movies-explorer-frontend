@@ -1,0 +1,51 @@
+.navtab-auth {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.navtab-auth__link {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+
+    color: #000;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+
+    transition: opacity 1s ease-in-out;
+}
+.navtab-auth__link:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.navtab-auth__link_type_button {
+    width: 76px;
+    height: 32px;
+
+    border-radius: 3px;
+    background-color: #000;
+
+    margin-left: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: #FFF;
+}
+
+@media screen and (max-width: 530px) {
+    .navtab-auth__link { 
+        font-size: 10px;
+    }
+
+    .navtab-auth__link_type_button {
+        width: 54px;
+        height: 26px;
+
+        margin-left: 14px;
+    }
+}

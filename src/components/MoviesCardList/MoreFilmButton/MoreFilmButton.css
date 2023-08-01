@@ -1,0 +1,39 @@
+.more-film {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    margin: 80px 0; 
+}
+
+.more-film__button {
+    width: 320px;
+
+    height: 36px;
+
+    border: none;
+    border-radius: 6px;
+    background-color: #F9F9F9;
+
+    font-size: 12px;
+    font-weight: 500;
+    line-height: normal;
+
+    transition: opacity 1s ease-out 0s;
+}
+.more-film__button:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+@media screen and (max-width: 800px) {
+    .more-film {
+        margin: 60px 0 95px; 
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .more-film {
+        margin: 63px 0 75px; 
+    }
+}
