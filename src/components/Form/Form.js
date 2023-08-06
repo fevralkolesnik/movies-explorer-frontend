@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import logo from "../../images/logo.svg";
 
 export default function Form(props) {
-  const { title, name, buttonText, text, route, linkText, children } = props;
+  const { title, name, buttonText, text, route, linkText, onSubmit, children } = props;
 
   return (
     <section className="form">
@@ -14,7 +14,7 @@ export default function Form(props) {
 
       <h1 className="form__title">{title}</h1>
 
-      <form className="form__form " name={name}>
+      <form className="form__form " name={name} onSubmit={onSubmit}>
         {children}
 
         <button

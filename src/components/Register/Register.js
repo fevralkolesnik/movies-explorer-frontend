@@ -1,8 +1,31 @@
 import "./Register.css";
-import React from "react";
+import {React, useState} from "react";
 import Form from "../Form/Form";
 
 export default function Register(props) {
+  const {onRegister} = props;
+
+  const [formValue, setFormValue] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  function handleChange(e) {
+    const { name, value } = e.target;
+
+    setFormValue({
+      ...formValue,
+      [name]: value,
+    });
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    onRegister(formValue.name, formValue.email, formValue.password);
+  }
+
   return (
     <Form
       title="Добро пожаловать!"
@@ -11,15 +34,17 @@ export default function Register(props) {
       text="Уже зарегистрированы?"
       route="/signin"
       linkText="Войти"
+      onSubmit={handleSubmit}
     >
       <label className="form__form-field">
         Имя
         <input
           className="form__input"
           type="text"
-          id="registerName"
-          name="registerName"
-          placeholder="Виталий"
+          name="name"
+          value={formValue.name}
+          onChange={handleChange}
+          placeholder="Имя"
           required
           minLength="2"
           maxLength="30"
@@ -32,9 +57,10 @@ export default function Register(props) {
         <input
           className="form__input"
           type="email"
-          id="registerEmail"
-          name="registerEmail"
-          placeholder="pochta@yandex.ru|"
+          name="email"
+          value={formValue.email}
+          onChange={handleChange}
+          placeholder="E-mail"
           required
         />
         <span className="form__input-error registerEmail-error"></span>
@@ -45,14 +71,13 @@ export default function Register(props) {
         <input
           className="form__input"
           type="password"
-          id="registerPassword"
-          name="registerPassword"
-          placeholder="••••••••••••••"
+          name="password"
+          value={formValue.password}
+          onChange={handleChange}
+          placeholder="Пароль"
           required
         />
-        <span className="form__input-error registerPassword-error">
-          Что-то пошло не так...
-        </span>
+        <span className="form__input-error registerPassword-error"></span>
       </label>
     </Form>
   );
