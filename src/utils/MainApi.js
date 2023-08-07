@@ -1,4 +1,4 @@
-import { BASE_URL } from "./const";
+import { BASE_URL, BASE_MOVIES_URL } from "./const";
 
 class MainApi {
   #onResponce (res) {
@@ -43,7 +43,19 @@ class MainApi {
     return fetch(`${this._url}/movies`, {
       method: 'POST',
       headers: this._headers,
-      body: JSON.stringify(movie) //тут как вообще, столько параметров..
+      body: JSON.stringify({
+        country: movie.country,
+        director: movie.director,
+        duration: movie.duration,
+        year: movie.year,
+        description: movie.description,
+        image: BASE_MOVIES_URL + movie.image.url,
+        trailerLink: movie.trailerLink,
+        thumbnail: BASE_MOVIES_URL + movie.image.formats.thumbnail.url,
+        movieId: movie.id,
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN,
+      })
     })
     .then (this.#onResponce);
   }

@@ -6,14 +6,19 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
 
 export default function SavedMovies(props) {
-  const { onNavigatorClick } = props;
+  const { movies, savedMovies, onSearchFormSubmit, onSaveMovieClick, onDeleteMovieClick, onNavigatorClick } = props;
 
   return (
     <div className="saved-movies">
       <Header handleNavigatorClick={onNavigatorClick} />
       <main className="saved-movies__main">
-        <SearchForm />
-        <MoviesCardList savedMovies={true} />
+        <SearchForm onSearchMovie={onSearchFormSubmit}/>
+        <MoviesCardList
+          movies={movies}
+          savedMovies={savedMovies}
+          handleSaveMovieClick={onSaveMovieClick}
+          handleDeleteSavedMovieClick={onDeleteMovieClick} 
+        />
         <div className="saved-movies__block"></div>
       </main>
       <Footer />

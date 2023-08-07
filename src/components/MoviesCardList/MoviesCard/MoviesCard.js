@@ -1,10 +1,26 @@
 import "./MoviesCard.css";
 import { React, useState } from "react";
+import {useLocation} from 'react-router-dom';
+import { BASE_MOVIES_URL } from "../../../utils/const";
 
 export default function MoviesCard(props) {
-  const { card, savedMovies } = props;
+  const { movie, savedMovies, onSaveMovieClick, onDeleteMovieClick } = props;
+  const location = useLocation();
 
-  const [isFilmAdded, setIsFilmAdded] = useState(false);
+  const savedMovie = savedMovies.find((item) => item.movieId === movie.id);
+
+  function submitMovie() {
+    if (savedMovie) {
+      console.log(savedMovie._id);
+      onDeleteMovieClick(savedMovie._id);
+    } else {
+      onSaveMovieClick(movie);
+    }
+  }
+
+  function handleDeleteMovie() {
+    onDeleteMovieClick(movie._id);
+  }
 
   function filmDuration(duration) {
     const hour = duration / 60;
@@ -16,31 +32,34 @@ export default function MoviesCard(props) {
     }
   }
 
-  function hanldeButtonClick() {
-    setIsFilmAdded(!isFilmAdded);
-  }
-
   return (
-    <article className="card">
-      {savedMovies ? (
+    <article className="movie">
+      {location.pathname === "/saved-movies" ? (
         <button
-          className="card__button card__button_type_delete"
-          onClick={hanldeButtonClick}
+          className="movie__button movie__button_type_delete"
+          type="button"
+          onClick={handleDeleteMovie}
         ></button>
       ) : (
         <button
-          className={`card__button ${
-            isFilmAdded ? "card__button_type_added" : "card__button_type_save"
+          className={`movie__button ${
+            savedMovie ? "movie__button_type_added" : "movie__button_type_save"
           }`}
-          onClick={hanldeButtonClick}
+          type="button"
+          onClick={submitMovie}
         >
-          {isFilmAdded ? "" : "Сохранить"}
+          {savedMovie ? "" : "Сохранить"}
         </button>
       )}
-      <img className="card__image" src={card.image} alt={card.nameRU} />
-      <div className="card__container">
-        <p className="card__name">{card.nameRU}</p>
-        <p className="card__time">{filmDuration(card.duration)}</p>
+      <img className="movie__image" 
+        src={location.pathname !== "/saved-movies" ? 
+        BASE_MOVIES_URL + movie.image.url : 
+        movie.image} 
+        alt={movie.nameRU} 
+      />
+      <div className="movie__container">
+        <p className="movie__name">{movie.nameRU}</p>
+        <p className="movie__time">{filmDuration(movie.duration)}</p>
       </div>
     </article>
   );

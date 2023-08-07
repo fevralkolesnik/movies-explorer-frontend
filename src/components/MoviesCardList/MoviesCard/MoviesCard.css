@@ -1,4 +1,4 @@
-.card {
+.movie {
     height: 100%;
     width: 100%;
     display: flex;
@@ -6,15 +6,16 @@
 
     position: relative;
 }
-.card:hover {
+.movie:hover {
     cursor: pointer;
 }
 
-.card__button {
+.movie__button {
     opacity: 0;
     position: absolute;
     top: 14px;
     right: 14px;
+    z-index: 10;
 
     border-radius: 30px;
     border: none;
@@ -22,14 +23,14 @@
 
     transition: opacity 0.5s ease-in-out;
 }
-.card:hover .card__button {
+.movie:hover .movie__button {
     opacity: 1;
 }
-.card:hover .card__button:hover {
+.movie:hover .movie__button:hover {
     opacity: 0.8;
     cursor: pointer;
 }
-.card__button_type_save {
+.movie__button_type_save {
     width: 72px;
     height: 21px;
 
@@ -39,19 +40,19 @@
     font-weight: 400;
     line-height: 9px;
 }
-.card__button_type_added {
+.movie__button_type_added {
     opacity: 1;
     width: 21px;
     height: 21px;
     background-image: url("../../../images/saved.svg");
 }
-.card__button_type_delete {
+.movie__button_type_delete {
     width: 21px;
     height: 21px;
     background-image: url("../../../images/delete.svg");
 }
 
-.card__image {
+.movie__image {
     width: 100%;
     height: 201px;
     border-radius: 5px;
@@ -59,7 +60,7 @@
     object-fit: cover;
 }
 
-.card__container {
+.movie__container {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -70,7 +71,7 @@
     box-sizing: border-box;
 }
 
-.card__name {
+.movie__name {
     width: calc(100% - 52px - 30px);
     margin: 0;
     padding: 0;
@@ -85,7 +86,7 @@
     overflow: hidden;
 }
 
-.card__time {
+.movie__time {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -104,26 +105,26 @@
 }
 
 @media screen and (max-width: 800px) {
-    .card__image {
+    .movie__image {
         height: 190px;
     }
 
-    .card__container {
+    .movie__container {
         margin-top: 25px;
         padding: 0;
     }
 }
 
 @media screen and (max-width: 500px) {
-    .card__image {
+    .movie__image {
         height: 168px;
     }
 
-    .card__name {
+    .movie__name {
         font-size: 12px;
     }
 
-    .card__container {
+    .movie__container {
         margin-top: 16px;
     }
 }

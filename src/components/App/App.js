@@ -4,6 +4,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import ProtectedRouteElement from "../ProtectedRoute/ProtectedRoute";
 import mainApi from "../../utils/MainApi";
+import moviesApi from "../../utils/MoviesApi";
 import auth from "../../utils/Auth";
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
@@ -23,6 +24,9 @@ export default function App() {
   });
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
+  const [foundedMovies, setFoundedMovies] = useState([]);
+  const [foundedSavedMovies, setFoundedSavedMovies] = useState([]);
+  const [checkbox, setcCheckbox] = useState(false);
   const [isNavigatorOpen, setIsNavigatorOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -108,6 +112,24 @@ export default function App() {
       .catch((err) => {
         console.log(`Произошла ошибка: ${err}`);
       });
+    moviesApi
+      .getMovies()
+      .then((data) => {
+        setMovies(data);
+      })
+      .catch((err) => {
+        console.log(`Произошла ошибка: ${err}`);
+      });
+    mainApi
+      .getSavedMovies()
+      .then((data) => {
+        data.reverse();
+        setSavedMovies(data);
+        setFoundedSavedMovies(data);
+      })
+      .catch((err) => {
+        console.log(`Произошла ошибка: ${err}`);
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn]);
 
@@ -121,6 +143,70 @@ export default function App() {
       .setUserInfo(name, email)
       .then((res) => {
         setCurrentUser({ ...currentUser, name: res.name, email: res.email });
+      })
+      .catch((err) => {
+        console.log(`Произошла ошибка: ${err}`);
+      });
+  }
+
+  function handleSearchMovie(input, checkbox) {
+    const searchedMovies = movies.filter((item) =>
+      item.nameRU.toLowerCase().includes(input.toLowerCase())
+    );
+    if (checkbox) {
+      const searchedMoviesChecked = searchedMovies.filter((item =>
+        item.duration < 40
+      ));
+      setFoundedMovies(searchedMoviesChecked);
+    }
+    else {
+      const searchedMoviesChecked = searchedMovies;
+      setFoundedMovies(searchedMoviesChecked);
+    }
+  }
+
+  function handleSearchSavedMovie (input, checkbox) {
+    const searchedSavedMovies = savedMovies.filter((item) =>
+      item.nameRU.toLowerCase().includes(input.toLowerCase())
+    );
+    if (checkbox) {
+      const searchedSavedMoviesChecked = searchedSavedMovies.filter((item =>
+        item.duration < 40
+      ));
+      setFoundedSavedMovies(searchedSavedMoviesChecked);
+    }
+    else {
+      const searchedSavedMoviesChecked = searchedSavedMovies;
+      setFoundedSavedMovies(searchedSavedMoviesChecked);
+    }
+  }
+
+  function handleSaveMovieClick (movie) {
+    mainApi
+      .saveMovie(movie)
+      .then((res) => {
+        setSavedMovies([res].concat(savedMovies));
+        setFoundedSavedMovies([res].concat(foundedSavedMovies));
+      })
+      .catch((err) => {
+        console.log(`Произошла ошибка: ${err}`);
+      });
+  }
+
+  function handleDeleteSavedMovieClick (movieId) {
+    mainApi
+      .deleteMovie(movieId)
+      .then((res) => {
+        setSavedMovies(
+          savedMovies.filter((item =>
+            item._id !== res._id
+          ))
+        );
+        setFoundedSavedMovies (
+          foundedSavedMovies.filter((item =>
+            item._id !== res._id
+          ))
+        );
       })
       .catch((err) => {
         console.log(`Произошла ошибка: ${err}`);
@@ -152,6 +238,11 @@ export default function App() {
               <ProtectedRouteElement
                 component={Movies}
                 isLoggedIn={isLoggedIn}
+                movies={foundedMovies}
+                savedMovies={savedMovies}
+                onSearchFormSubmit={handleSearchMovie}
+                onSaveMovieClick={handleSaveMovieClick}
+                onDeleteMovieClick={handleDeleteSavedMovieClick}
                 onNavigatorClick={handleNavigatorOpen}
               />
             }
@@ -163,6 +254,11 @@ export default function App() {
               <ProtectedRouteElement
                 component={SavedMovies}
                 isLoggedIn={isLoggedIn}
+                movies={foundedSavedMovies}
+                savedMovies={savedMovies}
+                onSearchFormSubmit={handleSearchSavedMovie}
+                onSaveMovieClick={handleSaveMovieClick}
+                onDeleteMovieClick={handleDeleteSavedMovieClick}
                 onNavigatorClick={handleNavigatorOpen}
               />
             }
