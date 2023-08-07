@@ -1,15 +1,19 @@
 import "./SearchForm.css";
-import {React, useState} from "react";
+import { React, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 export default function SearchForm(props) {
   const { onSearchMovie } = props;
 
   const [inputValue, setInputValue] = useState("");
   const [checkbox, setCheckbox] = useState(false);
+  const location = useLocation();
 
   function handleChangeCheckbox() {
     setCheckbox(!checkbox);
-    // onSubmitCheckbox(!checkbox);
+    if (inputValue !== "" || location.pathname === "/saved-movies") {
+      onSearchMovie(inputValue, !checkbox);
+    }
   }
 
   function handleChange(e) {
@@ -24,10 +28,14 @@ export default function SearchForm(props) {
 
   return (
     <div className="search-form">
-      <form className="search-form__form" name="searchForm" onSubmit={handleSubmit}>
+      <form
+        className="search-form__form"
+        name="searchForm"
+        onSubmit={handleSubmit}
+      >
         <label>
-          <input 
-            className="search-form__input" 
+          <input
+            className="search-form__input"
             type="text"
             name="movie"
             value={inputValue}
@@ -44,10 +52,10 @@ export default function SearchForm(props) {
         ></button>
       </form>
       <label className="search-form__form-field">
-        <input 
+        <input
           className="search-form__checkbox"
           type="checkbox"
-          checked={checkbox ? true : false}
+          // checked={checkbox ? true : false}
           onChange={handleChangeCheckbox}
         />
         <span className="search-form__visible-checkbox"></span>

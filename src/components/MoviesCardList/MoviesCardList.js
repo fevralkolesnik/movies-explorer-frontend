@@ -1,6 +1,5 @@
 import "./MoviesCardList.css";
 import React from "react";
-import { Link } from "react-router-dom";
 import MoviesCard from "./MoviesCard/MoviesCard";
 
 export default function MoviesCardList(props) {

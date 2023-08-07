@@ -1,6 +1,6 @@
 import "./MoviesCard.css";
-import { React, useState } from "react";
-import {useLocation} from 'react-router-dom';
+import { React } from "react";
+import { useLocation } from "react-router-dom";
 import { BASE_MOVIES_URL } from "../../../utils/const";
 
 export default function MoviesCard(props) {
@@ -51,11 +51,14 @@ export default function MoviesCard(props) {
           {savedMovie ? "" : "Сохранить"}
         </button>
       )}
-      <img className="movie__image" 
-        src={location.pathname !== "/saved-movies" ? 
-        BASE_MOVIES_URL + movie.image.url : 
-        movie.image} 
-        alt={movie.nameRU} 
+      <img
+        className="movie__image"
+        src={
+          location.pathname !== "/saved-movies"
+            ? BASE_MOVIES_URL + movie.image.url
+            : movie.image
+        }
+        alt={movie.nameRU}
       />
       <div className="movie__container">
         <p className="movie__name">{movie.nameRU}</p>

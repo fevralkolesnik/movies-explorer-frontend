@@ -26,7 +26,6 @@ export default function App() {
   const [savedMovies, setSavedMovies] = useState([]);
   const [foundedMovies, setFoundedMovies] = useState([]);
   const [foundedSavedMovies, setFoundedSavedMovies] = useState([]);
-  const [checkbox, setcCheckbox] = useState(false);
   const [isNavigatorOpen, setIsNavigatorOpen] = useState(false);
 
   const navigate = useNavigate();
@@ -37,6 +36,7 @@ export default function App() {
   }
 
   function handleLoggedOut() {
+    localStorage.removeItem("token");
     setCurrentUser({
       ...currentUser,
       _id: "",
@@ -46,6 +46,8 @@ export default function App() {
     setIsLoggedIn(false);
     setMovies([]);
     setSavedMovies([]);
+    setFoundedMovies([]);
+    setFoundedSavedMovies([]);
   }
 
   function handleTokenCheck() {
@@ -88,7 +90,7 @@ export default function App() {
     auth
       .register(name, email, password)
       .then(() => {
-        navigate("/signin", { replace: true });
+        handleLogin(email, password);
       })
       .catch((err) => {
         console.log(`Произошла ошибка: ${err}`);
@@ -154,6 +156,7 @@ export default function App() {
       item.nameRU.toLowerCase().includes(input.toLowerCase())
     );
     if (checkbox) {
+      console.log('alo');
       const searchedMoviesChecked = searchedMovies.filter((item =>
         item.duration < 40
       ));
@@ -197,6 +200,7 @@ export default function App() {
     mainApi
       .deleteMovie(movieId)
       .then((res) => {
+        console.log(res);
         setSavedMovies(
           savedMovies.filter((item =>
             item._id !== res._id
