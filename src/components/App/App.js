@@ -76,9 +76,7 @@ export default function App() {
       .then((res) => {
         localStorage.setItem("token", res.token);
         mainApi.setToken(res.token);
-        console.log("ok");
         mainApi.getUserInfo().then((res) => {
-          console.log("res");
           handleLoggedIn(res.name, res.email);
           navigate("/movies", { replace: true }); // тут дальше возможно стоит получить все фильмы
         });

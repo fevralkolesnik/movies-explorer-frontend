@@ -6,6 +6,7 @@ import MoviesCard from "./MoviesCard/MoviesCard";
 import {
   WIDTH_1280PX,
   WIDTH_768PX,
+  WIDTH_320PX,
   MAX_COUNT_ELEMENTS,
   TIMEOUT,
 } from "../../utils/const";
@@ -40,9 +41,9 @@ export default function MoviesCardList(props) {
   }
 
   function handleElementCount() {
-    if (width < WIDTH_1280PX) {
+    if (width < WIDTH_768PX) {
       setMaxElementsCount(4 * 2);
-    } else if (width < WIDTH_768PX) {
+    } else if (width < WIDTH_320PX) {
       setMaxElementsCount(5);
     } else {
       setMaxElementsCount(4 * 3);
@@ -83,14 +84,6 @@ export default function MoviesCardList(props) {
               onSaveMovieClick={handleSaveMovieClick}
               onDeleteMovieClick={handleDeleteSavedMovieClick}
             />
-
-            {/* <Link to={card.trailerLink} target="_blank" className="cards__link">
-            <MoviesCard
-              card={card}
-              onSaveMovieClick={handleSaveMovieClick}
-              onDeleteMovieClick={handleDeleteSavedMovieClick}
-            />
-          </Link> */}
           </div>
         ))}
       </div>
