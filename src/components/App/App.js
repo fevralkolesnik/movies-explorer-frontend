@@ -34,6 +34,7 @@ export default function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
+
   function handleLoggedIn(name, email) {
     setCurrentUser({ ...currentUser, name: name, email: email });
     setIsLoggedIn(true);
@@ -62,7 +63,7 @@ export default function App() {
         .then((res) => {
           if (res) {
             handleLoggedIn(res.name, res.email);
-            navigate("/movies", { replace: true }); // тут дальше возможно стоит получить все фильмы
+            navigate("/movies", { replace: true });
           }
         })
         .catch((err) => {

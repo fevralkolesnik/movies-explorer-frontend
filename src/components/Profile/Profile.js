@@ -32,9 +32,7 @@ export default function Profile(props) {
       [name]: value,
     });
 
-    if (formValue[name] !== currentUser[name]) {
-      setSubmitDisabled(false);
-    }
+    (value !== currentUser[name]) ? setSubmitDisabled(false) : setSubmitDisabled(true);
   }
 
   function handleSubmit(e) {

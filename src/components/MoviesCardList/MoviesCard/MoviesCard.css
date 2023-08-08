@@ -121,6 +121,9 @@
 }
 
 @media screen and (max-width: 500px) {
+    .movie__button {
+        opacity: 1;
+    }
     .movie__image {
         height: 168px;
     }
