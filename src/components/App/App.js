@@ -14,6 +14,7 @@ import Register from "../Register/Register";
 import Login from "../Login/Login";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import Navigation from "../Navigation/Navigation";
+import {SHORT_MOVIE} from "../../utils/const";
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -158,7 +159,7 @@ export default function App() {
       setNotification('');
       if (checkbox) {
         const searchedMoviesChecked = searchedMovies.filter(
-          (item) => item.duration < 40
+          (item) => item.duration < SHORT_MOVIE
         );
         setFoundedMovies(searchedMoviesChecked);
       } else {
@@ -192,7 +193,7 @@ export default function App() {
     );
     if (checkbox) {
       const searchedSavedMoviesChecked = searchedSavedMovies.filter(
-        (item) => item.duration < 40
+        (item) => item.duration < SHORT_MOVIE
       );
       setFoundedSavedMovies(searchedSavedMoviesChecked);
     } else {

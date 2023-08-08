@@ -23,30 +23,33 @@ export default function MoviesCardList(props) {
   const [showedMovies, setShowedMovies] = useState([]);
   const location = useLocation();
 
+  function handleSetTimeout() {
+    setTimeout(() => setWidth(window.innerWidth), TIMEOUT)
+  }
+
   useEffect(() => {
-    window.addEventListener("resize", () =>
-      setTimeout(() => setWidth(window.innerWidth), TIMEOUT)
-    );
+    window.addEventListener("resize", handleSetTimeout);
+    return () => window.removeEventListener("resize", handleSetTimeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function handleMoreClick() {
     if (maxElementsCount < movies.length) {
-      if (width < WIDTH_1280PX) {
-        setMaxElementsCount(maxElementsCount + 2);
+      if (width < WIDTH_1280PX.width) {
+        setMaxElementsCount(maxElementsCount + WIDTH_768PX.addCount);
       } else {
-        setMaxElementsCount(maxElementsCount + 3);
+        setMaxElementsCount(maxElementsCount + WIDTH_1280PX.addCount);
       }
-    } //else добавить disable
+    }
   }
 
   function handleElementCount() {
-    if (width < WIDTH_768PX) {
-      setMaxElementsCount(4 * 2);
-    } else if (width < WIDTH_320PX) {
-      setMaxElementsCount(5);
+    if (width < WIDTH_320PX.width) {
+      setMaxElementsCount(WIDTH_320PX.count);
+    } else if (width < WIDTH_768PX.width) {
+      setMaxElementsCount(WIDTH_768PX.count);
     } else {
-      setMaxElementsCount(4 * 3);
+      setMaxElementsCount(WIDTH_1280PX.count);
     }
   }
 
