@@ -22,11 +22,13 @@ export default function App() {
     name: "",
     email: "",
   });
+  const [errorText, setErrorText] = useState("");
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [foundedMovies, setFoundedMovies] = useState([]);
   const [foundedSavedMovies, setFoundedSavedMovies] = useState([]);
   const [isNavigatorOpen, setIsNavigatorOpen] = useState(false);
+  const [preloaderStatus, setPreloaderStatus] = useState(false);
 
   const navigate = useNavigate();
 
@@ -74,12 +76,11 @@ export default function App() {
         localStorage.setItem("token", res.token);
         mainApi.setToken(res.token);
         console.log("ok");
-        mainApi.getUserInfo()
-          .then((res) => {
-            console.log("res");
-            handleLoggedIn(res.name, res.email);
-            navigate("/movies", { replace: true }); // тут дальше возможно стоит получить все фильмы
-          })
+        mainApi.getUserInfo().then((res) => {
+          console.log("res");
+          handleLoggedIn(res.name, res.email);
+          navigate("/movies", { replace: true }); // тут дальше возможно стоит получить все фильмы
+        });
       })
       .catch((err) => {
         console.log(`Произошла ошибка: ${err}`);
@@ -114,14 +115,6 @@ export default function App() {
       .catch((err) => {
         console.log(`Произошла ошибка: ${err}`);
       });
-    moviesApi
-      .getMovies()
-      .then((data) => {
-        setMovies(data);
-      })
-      .catch((err) => {
-        console.log(`Произошла ошибка: ${err}`);
-      });
     mainApi
       .getSavedMovies()
       .then((data) => {
@@ -151,40 +144,60 @@ export default function App() {
       });
   }
 
-  function handleSearchMovie(input, checkbox) {
-    const searchedMovies = movies.filter((item) =>
+  function searchMovie(data=movies, input, checkbox) {
+    const searchedMovies = data.filter((item) =>
       item.nameRU.toLowerCase().includes(input.toLowerCase())
     );
-    if (checkbox) {
-      console.log('alo');
-      const searchedMoviesChecked = searchedMovies.filter((item =>
-        item.duration < 40
-      ));
-      setFoundedMovies(searchedMoviesChecked);
+    if (searchedMovies.length === 0) {
+      setErrorText("Ничего не найдено");
+    } else {
+      setErrorText('');
+      if (checkbox) {
+        const searchedMoviesChecked = searchedMovies.filter(
+          (item) => item.duration < 40
+        );
+        setFoundedMovies(searchedMoviesChecked);
+      } else {
+        const searchedMoviesChecked = searchedMovies;
+        setFoundedMovies(searchedMoviesChecked);
+      }
     }
-    else {
-      const searchedMoviesChecked = searchedMovies;
-      setFoundedMovies(searchedMoviesChecked);
+  }
+  function handleSearchMovie(input, checkbox) {
+    if (movies.length !== 0) {
+      searchMovie(movies, input, checkbox);
+      return;
+    } else {
+      setPreloaderStatus(true);
+      moviesApi
+        .getMovies()
+        .then((data) => {
+          setMovies(data);
+          searchMovie(data, input, checkbox);
+        })
+        .catch((err) => {
+          console.log(`Произошла ошибка: ${err}`);
+        })
+        .finally(() => setPreloaderStatus(false));
     }
   }
 
-  function handleSearchSavedMovie (input, checkbox) {
+  function handleSearchSavedMovie(input, checkbox) {
     const searchedSavedMovies = savedMovies.filter((item) =>
       item.nameRU.toLowerCase().includes(input.toLowerCase())
     );
     if (checkbox) {
-      const searchedSavedMoviesChecked = searchedSavedMovies.filter((item =>
-        item.duration < 40
-      ));
+      const searchedSavedMoviesChecked = searchedSavedMovies.filter(
+        (item) => item.duration < 40
+      );
       setFoundedSavedMovies(searchedSavedMoviesChecked);
-    }
-    else {
+    } else {
       const searchedSavedMoviesChecked = searchedSavedMovies;
       setFoundedSavedMovies(searchedSavedMoviesChecked);
     }
   }
 
-  function handleSaveMovieClick (movie) {
+  function handleSaveMovieClick(movie) {
     mainApi
       .saveMovie(movie)
       .then((res) => {
@@ -196,20 +209,13 @@ export default function App() {
       });
   }
 
-  function handleDeleteSavedMovieClick (movieId) {
+  function handleDeleteSavedMovieClick(movieId) {
     mainApi
       .deleteMovie(movieId)
       .then((res) => {
-        console.log(res);
-        setSavedMovies(
-          savedMovies.filter((item =>
-            item._id !== res._id
-          ))
-        );
-        setFoundedSavedMovies (
-          foundedSavedMovies.filter((item =>
-            item._id !== res._id
-          ))
+        setSavedMovies(savedMovies.filter((item) => item._id !== res._id));
+        setFoundedSavedMovies(
+          foundedSavedMovies.filter((item) => item._id !== res._id)
         );
       })
       .catch((err) => {
@@ -232,7 +238,10 @@ export default function App() {
           <Route
             path="/"
             element={
-              <Main isLoggedIn={isLoggedIn} onNavigatorClick={handleNavigatorOpen} />
+              <Main
+                isLoggedIn={isLoggedIn}
+                onNavigatorClick={handleNavigatorOpen}
+              />
             }
           />
 
@@ -244,10 +253,12 @@ export default function App() {
                 isLoggedIn={isLoggedIn}
                 movies={foundedMovies}
                 savedMovies={savedMovies}
+                errorText={errorText}
                 onSearchFormSubmit={handleSearchMovie}
                 onSaveMovieClick={handleSaveMovieClick}
                 onDeleteMovieClick={handleDeleteSavedMovieClick}
                 onNavigatorClick={handleNavigatorOpen}
+                preloaderStatus={preloaderStatus}
               />
             }
           />
@@ -281,7 +292,10 @@ export default function App() {
             }
           />
 
-          <Route path="/signup" element={<Register onRegister={handleRegister} />} />
+          <Route
+            path="/signup"
+            element={<Register onRegister={handleRegister} />}
+          />
 
           <Route path="/signin" element={<Login onLogin={handleLogin} />} />
 
