@@ -104,6 +104,11 @@
     line-height: 10px;
 }
 
+.movie__link {
+    text-decoration: none;
+    color: #000;
+}
+
 @media screen and (max-width: 800px) {
     .movie__image {
         height: 190px;

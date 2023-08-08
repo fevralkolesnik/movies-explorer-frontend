@@ -1,6 +1,6 @@
 import "./App.css";
 import { React, useState, useEffect } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import ProtectedRouteElement from "../ProtectedRoute/ProtectedRoute";
 import mainApi from "../../utils/MainApi";
@@ -22,7 +22,7 @@ export default function App() {
     name: "",
     email: "",
   });
-  const [errorText, setErrorText] = useState("");
+  const [notification, setNotification] = useState("");
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [foundedMovies, setFoundedMovies] = useState([]);
@@ -31,6 +31,7 @@ export default function App() {
   const [preloaderStatus, setPreloaderStatus] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   function handleLoggedIn(name, email) {
     setCurrentUser({ ...currentUser, name: name, email: email });
@@ -133,11 +134,16 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    setNotification('');
+  }, [location])
+
   function handleUpdateUser(name, email) {
     mainApi
       .setUserInfo(name, email)
       .then((res) => {
         setCurrentUser({ ...currentUser, name: res.name, email: res.email });
+        setNotification('Данные пользователя успешно сохранены!');
       })
       .catch((err) => {
         console.log(`Произошла ошибка: ${err}`);
@@ -149,9 +155,9 @@ export default function App() {
       item.nameRU.toLowerCase().includes(input.toLowerCase())
     );
     if (searchedMovies.length === 0) {
-      setErrorText("Ничего не найдено");
+      setNotification("Ничего не найдено");
     } else {
-      setErrorText('');
+      setNotification('');
       if (checkbox) {
         const searchedMoviesChecked = searchedMovies.filter(
           (item) => item.duration < 40
@@ -253,7 +259,7 @@ export default function App() {
                 isLoggedIn={isLoggedIn}
                 movies={foundedMovies}
                 savedMovies={savedMovies}
-                errorText={errorText}
+                errorText={notification}
                 onSearchFormSubmit={handleSearchMovie}
                 onSaveMovieClick={handleSaveMovieClick}
                 onDeleteMovieClick={handleDeleteSavedMovieClick}
@@ -285,6 +291,7 @@ export default function App() {
               <ProtectedRouteElement
                 component={Profile}
                 isLoggedIn={isLoggedIn}
+                notificationText={notification}
                 onUpdateUser={handleUpdateUser}
                 onLogOut={handleLoggedOut}
                 onNavigatorClick={handleNavigatorOpen}

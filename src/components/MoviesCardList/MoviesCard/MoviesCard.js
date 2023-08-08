@@ -1,6 +1,6 @@
 import "./MoviesCard.css";
 import { React } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { BASE_MOVIES_URL } from "../../../utils/const";
 
 export default function MoviesCard(props) {
@@ -11,7 +11,6 @@ export default function MoviesCard(props) {
 
   function submitMovie() {
     if (savedMovie) {
-      console.log(savedMovie._id);
       onDeleteMovieClick(savedMovie._id);
     } else {
       onSaveMovieClick(movie);
@@ -51,19 +50,21 @@ export default function MoviesCard(props) {
           {savedMovie ? "" : "Сохранить"}
         </button>
       )}
-      <img
-        className="movie__image"
-        src={
-          location.pathname !== "/saved-movies"
-            ? BASE_MOVIES_URL + movie.image.url
-            : movie.image
-        }
-        alt={movie.nameRU}
-      />
-      <div className="movie__container">
-        <p className="movie__name">{movie.nameRU}</p>
-        <p className="movie__time">{filmDuration(movie.duration)}</p>
-      </div>
+      <Link to={movie.trailerLink} target="_blank" className="movie__link">
+        <img
+          className="movie__image"
+          src={
+            location.pathname !== "/saved-movies"
+              ? BASE_MOVIES_URL + movie.image.url
+              : movie.image
+          }
+          alt={movie.nameRU}
+        />
+        <div className="movie__container">
+          <p className="movie__name">{movie.nameRU}</p>
+          <p className="movie__time">{filmDuration(movie.duration)}</p>
+        </div>
+      </Link>
     </article>
   );
 }
