@@ -42,6 +42,9 @@ export default function App() {
 
   function handleLoggedOut() {
     localStorage.removeItem("token");
+    localStorage.removeItem("input");
+    localStorage.removeItem("checkbox");
+    localStorage.removeItem("savedMoviesCheckbox");
     setCurrentUser({
       ...currentUser,
       _id: "",
@@ -102,7 +105,7 @@ export default function App() {
   }
 
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (!localStorage.getItem("token")) {
       return;
     }
     mainApi
@@ -173,7 +176,7 @@ export default function App() {
   }
   function handleSearchMovie(input, checkbox) {
     localStorage.setItem("input", input);
-    localStorage.setItem("checkbox", checkbox);
+    localStorage.setItem("checkbox", JSON.stringify(checkbox));
     console.log(input, checkbox);
     if (movies.length !== 0) {
       searchMovie(movies, input, checkbox);

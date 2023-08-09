@@ -23,7 +23,7 @@ export default function Profile(props) {
 
   useEffect(() => {
     if (
-      values.name === currentUser.name ||
+      values.name === currentUser.name &&
       values.email === currentUser.email
     ) {
       setIsValid(false);
@@ -81,6 +81,7 @@ export default function Profile(props) {
               className={`profile__submit-button ${
                 isValid ? "" : "profile__submit-button_disabled"
               }`}
+              disabled={!isValid}
             >
               Редактировать
             </button>

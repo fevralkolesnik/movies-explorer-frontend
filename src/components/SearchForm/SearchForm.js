@@ -5,38 +5,53 @@ import { useLocation } from "react-router-dom";
 export default function SearchForm(props) {
   const { onSearchMovie } = props;
 
-  const [inputValue, setInputValue] = useState("");
-  const [checkbox, setCheckbox] = useState(false);
+  const [inputValue, setInputValue] = useState(""); // возможно из-за этого
+  const [checkbox, setCheckbox] = useState(false); // возможно из-за этого меняется хотя блять смысле
+  const [errorMessage, setErrorMessage] = useState('');
   const location = useLocation();
 
   useEffect(() => {
     if (location.pathname === "/movies" && localStorage.getItem('input')) {
       setInputValue(localStorage.getItem('input'));
-      setCheckbox(localStorage.getItem('checkbox'));
+      setCheckbox(JSON.parse(localStorage.getItem('checkbox')));
       onSearchMovie(inputValue, checkbox);
     } 
     if (location.pathname === "/saved-movies") {
-      setCheckbox(localStorage.getItem('savedMoviesCheckbox'));
+      setCheckbox(JSON.parse(localStorage.getItem('savedMoviesCheckbox')));
       onSearchMovie(inputValue, checkbox);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
   function handleChangeCheckbox() {
-    setCheckbox(!checkbox);
-    if (inputValue !== "" || location.pathname === "/saved-movies") {
+    if (location.pathname === "/saved-movies") {
+      setCheckbox(!checkbox);
       onSearchMovie(inputValue, !checkbox);
+    } else if (location.pathname === "/movies") {
+      if (inputValue.length !== 0) {
+        setCheckbox(!checkbox);
+        onSearchMovie(inputValue, !checkbox);
+      }
     }
   }
 
   function handleChange(e) {
     setInputValue(e.target.value);
+    setErrorMessage('');
   }
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    onSearchMovie(inputValue, checkbox);
+    if (location.pathname === "/movies") {
+      if (inputValue.length < 1) {
+        setErrorMessage('Нужно ввести ключевое слово!');
+      } else {
+        onSearchMovie(inputValue, checkbox);
+      }
+    } else if (location.pathname === "/saved-movies") {
+      onSearchMovie(inputValue, checkbox);
+    }
   }
 
   return (
@@ -45,6 +60,7 @@ export default function SearchForm(props) {
         className="search-form__form"
         name="searchForm"
         onSubmit={handleSubmit}
+        noValidate
       >
         <label>
           <input
@@ -56,6 +72,7 @@ export default function SearchForm(props) {
             placeholder="Фильм"
             required
           />
+          <span className="search-form__input-error">{errorMessage}</span>
         </label>
 
         <button
