@@ -7,28 +7,40 @@ export default function SearchForm(props) {
 
   const [inputValue, setInputValue] = useState(""); // возможно из-за этого
   const [checkbox, setCheckbox] = useState(false); // возможно из-за этого меняется хотя блять смысле
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname === "/movies" && localStorage.getItem('input')) {
-      setInputValue(localStorage.getItem('input'));
-      setCheckbox(JSON.parse(localStorage.getItem('checkbox')));
-      onSearchMovie(inputValue, checkbox);
-    } 
-    if (location.pathname === "/saved-movies") {
-      setCheckbox(JSON.parse(localStorage.getItem('savedMoviesCheckbox')));
-      onSearchMovie(inputValue, checkbox);
+    if (location.pathname === "/movies") {
+      if (localStorage.getItem("input") && localStorage.getItem("checkbox")) {
+        const input = localStorage.getItem("input");
+        const box = JSON.parse(localStorage.getItem("checkbox"));
+        setInputValue(input);
+        setCheckbox(box);
+        onSearchMovie(input, box);
+      }
+    } else if (location.pathname === "/saved-movies") {
+      if (localStorage.getItem("savedMoviesCheckbox")) {
+        const input = localStorage.getItem("savedMoviesInput");
+        const box = JSON.parse(localStorage.getItem("savedMoviesCheckbox"));
+        setInputValue(input);
+        setCheckbox(box);
+        onSearchMovie(input, box);
+      }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
   function handleChangeCheckbox() {
     if (location.pathname === "/saved-movies") {
+      localStorage.setItem("savedMoviesInput", inputValue);
+      localStorage.setItem("savedMoviesCheckbox", JSON.stringify(!checkbox));
       setCheckbox(!checkbox);
       onSearchMovie(inputValue, !checkbox);
     } else if (location.pathname === "/movies") {
       if (inputValue.length !== 0) {
+        localStorage.setItem("input", inputValue);
+        localStorage.setItem("checkbox", JSON.stringify(!checkbox));
         setCheckbox(!checkbox);
         onSearchMovie(inputValue, !checkbox);
       }
@@ -37,7 +49,7 @@ export default function SearchForm(props) {
 
   function handleChange(e) {
     setInputValue(e.target.value);
-    setErrorMessage('');
+    setErrorMessage("");
   }
 
   function handleSubmit(e) {
@@ -45,11 +57,15 @@ export default function SearchForm(props) {
 
     if (location.pathname === "/movies") {
       if (inputValue.length < 1) {
-        setErrorMessage('Нужно ввести ключевое слово!');
+        setErrorMessage("Нужно ввести ключевое слово!");
       } else {
+        localStorage.setItem("input", inputValue);
+        localStorage.setItem("checkbox", JSON.stringify(checkbox));
         onSearchMovie(inputValue, checkbox);
       }
     } else if (location.pathname === "/saved-movies") {
+      localStorage.setItem("savedMoviesInput", inputValue);
+      localStorage.setItem("savedMoviesCheckbox", JSON.stringify(checkbox));
       onSearchMovie(inputValue, checkbox);
     }
   }

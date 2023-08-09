@@ -44,6 +44,7 @@ export default function App() {
     localStorage.removeItem("token");
     localStorage.removeItem("input");
     localStorage.removeItem("checkbox");
+    localStorage.removeItem("savedMoviesInput");
     localStorage.removeItem("savedMoviesCheckbox");
     setCurrentUser({
       ...currentUser,
@@ -175,9 +176,6 @@ export default function App() {
     }
   }
   function handleSearchMovie(input, checkbox) {
-    localStorage.setItem("input", input);
-    localStorage.setItem("checkbox", JSON.stringify(checkbox));
-    console.log(input, checkbox);
     if (movies.length !== 0) {
       searchMovie(movies, input, checkbox);
       return;
@@ -197,7 +195,6 @@ export default function App() {
   }
 
   function handleSearchSavedMovie(input, checkbox) {
-    localStorage.setItem("savedMoviesCheckbox", checkbox);
     const searchedSavedMovies = savedMovies.filter((item) =>
       item.nameRU.toLowerCase().includes(input.toLowerCase())
     );
