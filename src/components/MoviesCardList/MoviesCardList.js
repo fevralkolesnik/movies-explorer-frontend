@@ -35,7 +35,7 @@ export default function MoviesCardList(props) {
 
   function handleMoreClick() {
     if (maxElementsCount < movies.length) {
-      if (width < WIDTH_1280PX.width) {
+      if (width < WIDTH_768PX.width) {
         setMaxElementsCount(maxElementsCount + WIDTH_768PX.addCount);
       } else {
         setMaxElementsCount(maxElementsCount + WIDTH_1280PX.addCount);

@@ -17,7 +17,7 @@ import Navigation from "../Navigation/Navigation";
 import {SHORT_MOVIE} from "../../utils/const";
 
 export default function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [currentUser, setCurrentUser] = useState({
     _id: "",
     name: "",
@@ -37,7 +37,6 @@ export default function App() {
 
   function handleLoggedIn(name, email) {
     setCurrentUser({ ...currentUser, name: name, email: email });
-    setIsLoggedIn(true);
   }
 
   function handleLoggedOut() {
@@ -57,13 +56,14 @@ export default function App() {
 
   function handleTokenCheck() {
     const token = localStorage.getItem("token");
-    if (token) {
+    if (!token) {
+      setIsLoggedIn(false);
+    } else {
       mainApi
         .getUserInfo()
         .then((res) => {
           if (res) {
             handleLoggedIn(res.name, res.email);
-            navigate("/movies", { replace: true });
           }
         })
         .catch((err) => {
@@ -170,6 +170,9 @@ export default function App() {
     }
   }
   function handleSearchMovie(input, checkbox) {
+    localStorage.setItem("input", input);
+    localStorage.setItem("checkbox", checkbox);
+    console.log(input, checkbox);
     if (movies.length !== 0) {
       searchMovie(movies, input, checkbox);
       return;
@@ -189,6 +192,7 @@ export default function App() {
   }
 
   function handleSearchSavedMovie(input, checkbox) {
+    localStorage.setItem("savedMoviesCheckbox", checkbox);
     const searchedSavedMovies = savedMovies.filter((item) =>
       item.nameRU.toLowerCase().includes(input.toLowerCase())
     );

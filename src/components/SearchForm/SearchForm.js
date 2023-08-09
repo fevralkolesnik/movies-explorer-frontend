@@ -1,5 +1,5 @@
 import "./SearchForm.css";
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 export default function SearchForm(props) {
@@ -8,6 +8,17 @@ export default function SearchForm(props) {
   const [inputValue, setInputValue] = useState("");
   const [checkbox, setCheckbox] = useState(false);
   const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === "/movies" && localStorage.getItem('input')) {
+      setInputValue(localStorage.getItem('input'));
+      setCheckbox(localStorage.getItem('checkbox'));
+      onSearchMovie(inputValue, checkbox);
+    } else if (location.pathname === "/saved-movies") {
+      setCheckbox(localStorage.getItem('savedMoviesCheckbox'));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location]);
 
   function handleChangeCheckbox() {
     setCheckbox(!checkbox);
@@ -55,7 +66,7 @@ export default function SearchForm(props) {
         <input
           className="search-form__checkbox"
           type="checkbox"
-          // checked={checkbox ? true : false}
+          checked={checkbox ? true : false}
           onChange={handleChangeCheckbox}
         />
         <span className="search-form__visible-checkbox"></span>
