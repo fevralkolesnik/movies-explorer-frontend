@@ -14,8 +14,10 @@ export default function SearchForm(props) {
       setInputValue(localStorage.getItem('input'));
       setCheckbox(localStorage.getItem('checkbox'));
       onSearchMovie(inputValue, checkbox);
-    } else if (location.pathname === "/saved-movies") {
+    } 
+    if (location.pathname === "/saved-movies") {
       setCheckbox(localStorage.getItem('savedMoviesCheckbox'));
+      onSearchMovie(inputValue, checkbox);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);

@@ -1,46 +1,40 @@
 import "./Profile.css";
-import { React, useContext, useState, useEffect } from "react";
+import { React, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import Header from "../Header/Header";
+import useFormWithValidation from "../../hooks/useFormWithValidation";
 
 export default function Profile(props) {
   const { notificationText, onUpdateUser, onLogOut, onNavigatorClick } = props;
+  const { values, setValues, handleChange, errors, isValid, setIsValid } =
+    useFormWithValidation();
 
   const currentUser = useContext(CurrentUserContext);
-  const [submitDisabled, setSubmitDisabled] = useState(true);
-
-  const [formValue, setFormValue] = useState({
-    name: "",
-    email: "",
-  });
 
   useEffect(() => {
-    setFormValue({
-      ...formValue,
+    setValues({
+      ...values,
       name: currentUser.name,
       email: currentUser.email,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
 
-  function handleChange(e) {
-    const { name, value } = e.target;
-
-    setFormValue({
-      ...formValue,
-      [name]: value,
-    });
-
-    (value !== currentUser[name]) ? setSubmitDisabled(false) : setSubmitDisabled(true);
-  }
+  useEffect(() => {
+    if (
+      values.name === currentUser.name ||
+      values.email === currentUser.email
+    ) {
+      setIsValid(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [values, currentUser]);
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    onUpdateUser(formValue.name, formValue.email);
-
-    setSubmitDisabled(true);
+    onUpdateUser(values.name, values.email);
   }
 
   return (
@@ -53,6 +47,7 @@ export default function Profile(props) {
             className="profile__form"
             name="profile"
             onSubmit={handleSubmit}
+            noValidate
           >
             <label className="profile__label">
               Имя
@@ -60,12 +55,13 @@ export default function Profile(props) {
                 className="profile__input"
                 type="text"
                 name="name"
-                value={formValue.name}
+                value={values.name}
                 onChange={handleChange}
                 required
                 minLength="2"
                 maxLength="30"
               />
+              <span className="profile__input-error">{errors.name}</span>
             </label>
             <label className="profile__label">
               E-mail
@@ -73,18 +69,18 @@ export default function Profile(props) {
                 className="profile__input"
                 type="email"
                 name="email"
-                value={formValue.email}
+                value={values.email}
                 onChange={handleChange}
                 required
               />
+              <span className="profile__input-error">{errors.email}</span>
             </label>
             <span className="profile__text">{notificationText}</span>
             <button
               type="submit"
               className={`profile__submit-button ${
-                submitDisabled ? "profile__submit-button_disabled" : ""
+                isValid ? "" : "profile__submit-button_disabled"
               }`}
-              disabled={submitDisabled}
             >
               Редактировать
             </button>

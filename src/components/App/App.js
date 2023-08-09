@@ -37,6 +37,7 @@ export default function App() {
 
   function handleLoggedIn(name, email) {
     setCurrentUser({ ...currentUser, name: name, email: email });
+    setIsLoggedIn(true);
   }
 
   function handleLoggedOut() {
@@ -58,6 +59,7 @@ export default function App() {
     const token = localStorage.getItem("token");
     if (!token) {
       setIsLoggedIn(false);
+      return;
     } else {
       mainApi
         .getUserInfo()

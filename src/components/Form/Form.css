@@ -106,6 +106,12 @@
 .form__submit-button_type_login {
     margin-top: 155px;
 }
+.form__submit-button_disabled {
+    opacity: 0.8;
+}
+.form__submit-button_disabled:hover {
+    cursor: default;
+}
 
 .form__container {
     display: flex;

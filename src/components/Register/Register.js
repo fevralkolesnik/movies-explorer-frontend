@@ -1,29 +1,16 @@
 import "./Register.css";
-import {React, useState} from "react";
+import {React} from "react";
 import Form from "../Form/Form";
+import useFormWithValidation from "../../hooks/useFormWithValidation";
 
 export default function Register(props) {
   const {onRegister} = props;
-
-  const [formValue, setFormValue] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
-
-  function handleChange(e) {
-    const { name, value } = e.target;
-
-    setFormValue({
-      ...formValue,
-      [name]: value,
-    });
-  }
+  const { values, handleChange, errors, isValid } = useFormWithValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    onRegister(formValue.name, formValue.email, formValue.password);
+    onRegister(values.name, values.email, values.password);
   }
 
   return (
@@ -35,6 +22,7 @@ export default function Register(props) {
       route="/signin"
       linkText="Войти"
       onSubmit={handleSubmit}
+      isValid={isValid}
     >
       <label className="form__form-field">
         Имя
@@ -42,14 +30,14 @@ export default function Register(props) {
           className="form__input"
           type="text"
           name="name"
-          value={formValue.name}
+          value={values.name}
           onChange={handleChange}
           placeholder="Имя"
           required
           minLength="2"
           maxLength="30"
         />
-        <span className="form__input-error registerName-error"></span>
+        <span className="form__input-error">{errors.name}</span>
       </label>
 
       <label className="form__form-field">
@@ -58,12 +46,12 @@ export default function Register(props) {
           className="form__input"
           type="email"
           name="email"
-          value={formValue.email}
+          value={values.email}
           onChange={handleChange}
           placeholder="E-mail"
           required
         />
-        <span className="form__input-error registerEmail-error"></span>
+        <span className="form__input-error">{errors.email}</span>
       </label>
 
       <label className="form__form-field">
@@ -72,12 +60,13 @@ export default function Register(props) {
           className="form__input"
           type="password"
           name="password"
-          value={formValue.password}
+          value={values.password}
           onChange={handleChange}
           placeholder="Пароль"
           required
+          minLength="6"
         />
-        <span className="form__input-error registerPassword-error"></span>
+        <span className="form__input-error">{errors.password}</span>
       </label>
     </Form>
   );

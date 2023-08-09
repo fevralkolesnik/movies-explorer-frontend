@@ -1,28 +1,16 @@
 import "./Login.css";
-import {React, useState} from "react";
+import {React} from "react";
 import Form from "../Form/Form";
+import useFormWithValidation from "../../hooks/useFormWithValidation";
 
 export default function Login(props) {
   const {onLogin} = props;
-
-  const [formValue, setFormValue] = useState({
-    email: "",
-    password: "",
-  });
-
-  function handleChange(e) {
-    const { name, value } = e.target;
-
-    setFormValue({
-      ...formValue,
-      [name]: value,
-    });
-  }
+  const { values, handleChange, errors, isValid } = useFormWithValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    onLogin(formValue.email, formValue.password);
+    onLogin(values.email, values.password);
   }
 
   return (
@@ -34,6 +22,7 @@ export default function Login(props) {
       route="/signup"
       linkText="Регистрация"
       onSubmit={handleSubmit}
+      isValid={isValid}
     >
       <label className="form__form-field">
         E-mail
@@ -41,12 +30,12 @@ export default function Login(props) {
           className="form__input"
           type="email"
           name="email"
-          value={formValue.email}
+          value={values.email}
           onChange={handleChange}
           placeholder="E-mail"
           required
         />
-        <span className="form__input-error loginEmail-error"></span>
+        <span className="form__input-error">{errors.email}</span>
       </label>
 
       <label className="form__form-field">
@@ -55,12 +44,13 @@ export default function Login(props) {
           className="form__input"
           type="password"
           name="password"
-          value={formValue.password}
+          value={values.password}
           onChange={handleChange}
           placeholder="Пароль"
           required
+          minLength="6"
         />
-        <span className="form__input-error loginPassword-error"></span>
+        <span className="form__input-error">{errors.password}</span>
       </label>
     </Form>
   );
