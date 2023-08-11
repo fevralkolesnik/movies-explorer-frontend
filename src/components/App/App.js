@@ -1,6 +1,6 @@
 import "./App.css";
 import { React, useState, useEffect } from "react";
-import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import ProtectedRouteElement from "../ProtectedRoute/ProtectedRoute";
 import mainApi from "../../utils/MainApi";
@@ -86,7 +86,7 @@ export default function App() {
         mainApi.setToken(res.token);
         mainApi.getUserInfo().then((res) => {
           handleLoggedIn(res.name, res.email);
-          navigate("/movies", { replace: true }); // тут дальше возможно стоит получить все фильмы
+          navigate("/movies", { replace: true }); 
         });
       })
       .catch((err) => {
@@ -305,12 +305,27 @@ export default function App() {
             }
           />
 
-          <Route
+          <Route 
             path="/signup"
-            element={<Register onRegister={handleRegister} />}
+            element={
+              isLoggedIn ? (
+                <Navigate to='/' replace />
+              ) : (
+                <Register onRegister={handleRegister} />
+              )
+            }
           />
 
-          <Route path="/signin" element={<Login onLogin={handleLogin} />} />
+          <Route 
+            path="/signin"
+            element={
+              isLoggedIn ? (
+                <Navigate to='/' replace />
+              ) : (
+                <Login onLogin={handleLogin} />
+              )
+            }
+          />
 
           <Route path="*" element={<PageNotFound />} />
         </Routes>

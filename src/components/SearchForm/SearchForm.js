@@ -5,8 +5,8 @@ import { useLocation } from "react-router-dom";
 export default function SearchForm(props) {
   const { onSearchMovie } = props;
 
-  const [inputValue, setInputValue] = useState(""); // возможно из-за этого
-  const [checkbox, setCheckbox] = useState(false); // возможно из-за этого меняется хотя блять смысле
+  const [inputValue, setInputValue] = useState(""); 
+  const [checkbox, setCheckbox] = useState(false); 
   const [errorMessage, setErrorMessage] = useState("");
   const location = useLocation();
 
@@ -20,21 +20,13 @@ export default function SearchForm(props) {
         onSearchMovie(input, box);
       }
     } else if (location.pathname === "/saved-movies") {
-      if (localStorage.getItem("savedMoviesCheckbox")) {
-        const input = localStorage.getItem("savedMoviesInput");
-        const box = JSON.parse(localStorage.getItem("savedMoviesCheckbox"));
-        setInputValue(input);
-        setCheckbox(box);
-        onSearchMovie(input, box);
+        onSearchMovie(inputValue, checkbox);
       }
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
   function handleChangeCheckbox() {
     if (location.pathname === "/saved-movies") {
-      localStorage.setItem("savedMoviesInput", inputValue);
-      localStorage.setItem("savedMoviesCheckbox", JSON.stringify(!checkbox));
       setCheckbox(!checkbox);
       onSearchMovie(inputValue, !checkbox);
     } else if (location.pathname === "/movies") {
@@ -64,8 +56,6 @@ export default function SearchForm(props) {
         onSearchMovie(inputValue, checkbox);
       }
     } else if (location.pathname === "/saved-movies") {
-      localStorage.setItem("savedMoviesInput", inputValue);
-      localStorage.setItem("savedMoviesCheckbox", JSON.stringify(checkbox));
       onSearchMovie(inputValue, checkbox);
     }
   }
