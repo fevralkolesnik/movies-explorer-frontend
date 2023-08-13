@@ -74,7 +74,10 @@
     grid-row: 1/5;
 
     width: 100%;
-    object-fit: contain;
+    height: 100%;
+    max-height: 352px;
+    object-fit: cover;
+    border-radius: 10px;
 }
 
 @media screen and (max-width: 800px) {
@@ -151,10 +154,11 @@
     .aboutme__image {
         grid-column: 1/2;
         grid-row: 1/2;
-    
-        width: 100%;
+
+        width: 292px;
         height: 352px;
-        object-fit: contain;
+        object-fit: cover;    
+        justify-self: center;
     }
 
     .aboutme__link {
