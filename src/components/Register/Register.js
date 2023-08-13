@@ -1,8 +1,18 @@
 import "./Register.css";
-import React from "react";
+import {React} from "react";
 import Form from "../Form/Form";
+import useFormWithValidation from "../../hooks/useFormWithValidation";
 
 export default function Register(props) {
+  const {onRegister} = props;
+  const { values, handleChange, errors, isValid } = useFormWithValidation();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    onRegister(values.name, values.email, values.password);
+  }
+
   return (
     <Form
       title="Добро пожаловать!"
@@ -11,20 +21,23 @@ export default function Register(props) {
       text="Уже зарегистрированы?"
       route="/signin"
       linkText="Войти"
+      onSubmit={handleSubmit}
+      isValid={isValid}
     >
       <label className="form__form-field">
         Имя
         <input
           className="form__input"
           type="text"
-          id="registerName"
-          name="registerName"
-          placeholder="Виталий"
+          name="name"
+          value={values.name}
+          onChange={handleChange}
+          placeholder="Имя"
           required
           minLength="2"
           maxLength="30"
         />
-        <span className="form__input-error registerName-error"></span>
+        <span className="form__input-error">{errors.name}</span>
       </label>
 
       <label className="form__form-field">
@@ -32,12 +45,13 @@ export default function Register(props) {
         <input
           className="form__input"
           type="email"
-          id="registerEmail"
-          name="registerEmail"
-          placeholder="pochta@yandex.ru|"
+          name="email"
+          value={values.email}
+          onChange={handleChange}
+          placeholder="E-mail"
           required
         />
-        <span className="form__input-error registerEmail-error"></span>
+        <span className="form__input-error">{errors.email}</span>
       </label>
 
       <label className="form__form-field">
@@ -45,14 +59,14 @@ export default function Register(props) {
         <input
           className="form__input"
           type="password"
-          id="registerPassword"
-          name="registerPassword"
-          placeholder="••••••••••••••"
+          name="password"
+          value={values.password}
+          onChange={handleChange}
+          placeholder="Пароль"
           required
+          minLength="6"
         />
-        <span className="form__input-error registerPassword-error">
-          Что-то пошло не так...
-        </span>
+        <span className="form__input-error">{errors.password}</span>
       </label>
     </Form>
   );

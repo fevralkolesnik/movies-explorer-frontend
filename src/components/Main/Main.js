@@ -8,12 +8,12 @@ import AboutMe from "./AboutMe/AboutMe";
 import Footer from "../Footer/Footer";
 
 export default function Main(props) {
-  const { isAuth, onNavigatorClick } = props;
+  const { isLoggedIn, onNavigatorClick } = props;
   return (
     <div className="main">
       <Header
         main={true}
-        isAuth={isAuth}
+        isLoggedIn={isLoggedIn}
         handleNavigatorClick={onNavigatorClick}
       />
       <main>

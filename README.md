@@ -1,6 +1,10 @@
 # [Ссылка на макет](https://drive.google.com/drive/folders/12jxhq8uIoQBijZ_G95jhoMjEppndlZJq?usp=sharing)
 .fig загружает исходный у меня, поэтому добавила pdf
 
+# [Ссылка на PR](https://github.com/fevralkolesnik/movies-explorer-frontend/pull/2) movie-explorer.fevral.nomoreparties.co
+
+# [Ссылка на front-end](https://movie-explorer.fevral.nomoreparties.co)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

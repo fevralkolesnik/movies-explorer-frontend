@@ -6,14 +6,14 @@ import NavTabAuth from "../NavTab/NavTabAuth/NavTabAuth";
 import logo from "../../images/logo.svg";
 
 export default function Header(props) {
-  const { main, isAuth, handleNavigatorClick } = props;
+  const { main, isLoggedIn=true, handleNavigatorClick } = props;
 
   return (
     <header className={`header ${main ? "header_type_main" : ""}`}>
       <Link to="/" className="header__logo">
         <img src={logo} alt="Лого" />
       </Link>
-      {isAuth ? <NavTabAuth /> : <NavTab onClick={handleNavigatorClick} />}
+      {isLoggedIn ? <NavTab onClick={handleNavigatorClick} /> : <NavTabAuth />}
     </header>
   );
 }
